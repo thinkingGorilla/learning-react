@@ -5,11 +5,52 @@
 </body>
 <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-<script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<!-- 브라우저에서 실행할 수 있는 스크립트 언어 지정 type/subtype -->
+<script type="text/babel">
     const root = document.getElementById("root");
-    const h3 = React.createElement("h3", {onMouseEnter: () => console.log("mouse enter")}, "Hello, I'm a span");
-    const btn = React.createElement("button", {onClick: () => console.log("im clicked")}, "Click me")
-    const container = React.createElement("div", null, [h3, btn]);
-    ReactDOM.render(container, root);
+
+    // Function expression
+    function Title() {
+        return (
+            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                Hello, I'm a title
+            </h3>
+        );
+    }
+
+    // Function declaration
+    const Button = function() {
+        return (
+            <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
+                Click me
+            </button>
+        )
+    }
+    // Arrow function → arguments X, ...args O
+    // Arrow function (single line)
+    // const Button = () => (
+    //     <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
+    //         Click me
+    //     </button>
+    // );
+    // Arrow function (compound-statement)
+    // const Button = () => {
+    //     return (
+    //         <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
+    //             Click me
+    //         </button>
+    //     );
+    // }
+
+    const Container = () => (
+        <div>
+            {/* 컴포넌트 이름이 소문자로 시작하면 HTML 태그로 인식한다 */}
+            <Title />
+            <Button />
+        </div>
+    )
+    // Javascript → Servlet, JSX → JSP
+    // 로직 언어로 프로그래밍 → 화면 언어로 프로그래밍
+    ReactDOM.render(<Container />, root);
 </script>
-</html>
