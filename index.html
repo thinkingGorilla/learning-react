@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <!-- 브라우저에서 실행할 수 있는 스크립트 언어 지정 type/subtype -->
 <script type="text/babel">
-    function App() {
+    function MinutesToHours() {
         const [amount, setAmount] = React.useState(0);
         const [flipped, setFlipped] = React.useState(false);
 
@@ -24,7 +24,6 @@
         return (
             <div>
                 <div>
-                    <h3>Super Converter</h3>
                     <label htmlFor="hours">Minutes</label>
                     <input
                         value={flipped ? amount * 60 : amount}
@@ -45,7 +44,79 @@
                         disabled={!flipped}/>
                 </div>
                 <button onClick={() => setAmount(_ => 0)}>Reset</button>
-                <button onClick={onFlip}>Flipped</button>
+                <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
+            </div>
+        );
+    }
+
+    function KilometersToMiles() {
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+
+        const onChange = (e) => {
+            setAmount(_ => e.target.value)
+        }
+
+        const onFlip = () => {
+            setAmount(_ => 0);
+            setFlipped((current) => !current);
+        }
+
+        return (
+            <div>
+                <div>
+                    <label htmlFor="kms">Kilometers</label>
+                    <input
+                        value={flipped ? amount * 1.609344 : amount}
+                        id="kms"
+                        placeholder="Kilometers"
+                        type="number"
+                        onChange={onChange}
+                        disabled={flipped}/>
+                </div>
+                <div>
+                    <label htmlFor="miles">Miles</label>
+                    <input
+                        value={!flipped ? amount * 0.6214 : amount}
+                        id="miles"
+                        placeholder="Miles"
+                        type="number"
+                        onChange={onChange}
+                        disabled={!flipped}/>
+                </div>
+                <button onClick={() => setAmount(_ => 0)}>Reset</button>
+                <button onClick={onFlip}>{flipped ? "Turn back" : "Flip"}</button>
+            </div>
+        );
+    }
+
+    function App() {
+        const [index, setIndex] = React.useState("xx");
+
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <select onChange={(e) => setIndex(e.target.value)} value={index}>
+                    <option value="xx">Select your units</option>
+                    <option value="0">Minutes & Hours</option>
+                    <option value="1">Kilometers & miles</option>
+                </select>
+
+                {/*
+                    왼쪽이 불리언으로 오른쪽이 불리언이 아니면
+                    왼쪽 평가 후 true일 경우 오른쪽 값을 반환한다.
+
+                    {index === "0" && <MinutesToHours/>}
+                    {index === "1" && <KilometersToMiles/>}
+                 */
+                }
+
+                <div style={{display: index === "0" ? "block" : "none"}}>
+                    <MinutesToHours/>
+                </div>
+                <div style={{display: index === "1" ? "block" : "none"}}>
+                    <KilometersToMiles/>
+                </div>
             </div>
         );
     }
