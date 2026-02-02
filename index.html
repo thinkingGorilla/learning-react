@@ -8,19 +8,48 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <!-- 브라우저에서 실행할 수 있는 스크립트 언어 지정 type/subtype -->
 <script type="text/babel">
-    const root = document.getElementById("root");
-
     function App() {
-        // 구조 분해 할당(Destructuring assignment), 클로저(Closure)
-        const [counter, setCounter] = React.useState(0);
-        // React가 함수 호출 시점에 최신 상태값을 보장한다.
-        const onClick = () => setCounter((current) => current + 1);
+        const [amount, setAmount] = React.useState(0);
+        const [flipped, setFlipped] = React.useState(false);
+
+        const onChange = (e) => {
+            setAmount(_ => e.target.value)
+        }
+
+        const onFlip = () => {
+            setAmount(_ => 0);
+            setFlipped((current) => !current);
+        }
+
         return (
             <div>
-                <h3>Total clicks: {counter}</h3>
-                <button onClick={onClick}>Click me</button>
+                <div>
+                    <h3>Super Converter</h3>
+                    <label htmlFor="hours">Minutes</label>
+                    <input
+                        value={flipped ? amount * 60 : amount}
+                        id="minutes"
+                        placeholder="Minutes"
+                        type="number"
+                        onChange={onChange}
+                        disabled={flipped}/>
+                </div>
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                    <input
+                        value={!flipped ? Math.round(amount / 60) : amount}
+                        id="hours"
+                        placeholder="Hours"
+                        type="number"
+                        onChange={onChange}
+                        disabled={!flipped}/>
+                </div>
+                <button onClick={() => setAmount(_ => 0)}>Reset</button>
+                <button onClick={onFlip}>Flipped</button>
             </div>
         );
     }
-    ReactDOM.render(<App />, root);
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App/>, root);
 </script>
