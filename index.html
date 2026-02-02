@@ -10,47 +10,22 @@
 <script type="text/babel">
     const root = document.getElementById("root");
 
-    // Function expression
-    function Title() {
+    let counter = 0;
+    function countUp() {
+        counter++;
+        render();
+    }
+    function render() {
+        ReactDOM.render(<Container />, root);
+    }
+
+    function Container() {
         return (
-            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-                Hello, I'm a title
-            </h3>
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button onClick={countUp}>Click me</button>
+            </div>
         );
     }
-
-    // Function declaration
-    const Button = function() {
-        return (
-            <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
-                Click me
-            </button>
-        )
-    }
-    // Arrow function → arguments X, ...args O
-    // Arrow function (single line)
-    // const Button = () => (
-    //     <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
-    //         Click me
-    //     </button>
-    // );
-    // Arrow function (compound-statement)
-    // const Button = () => {
-    //     return (
-    //         <button style={{backgroundColor: "tomato"}} onClick={() => console.log("im clicked")}>
-    //             Click me
-    //         </button>
-    //     );
-    // }
-
-    const Container = () => (
-        <div>
-            {/* 컴포넌트 이름이 소문자로 시작하면 HTML 태그로 인식한다 */}
-            <Title />
-            <Button />
-        </div>
-    )
-    // Javascript → Servlet, JSX → JSP
-    // 로직 언어로 프로그래밍 → 화면 언어로 프로그래밍
-    ReactDOM.render(<Container />, root);
+    render();
 </script>
