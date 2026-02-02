@@ -12,8 +12,9 @@
 
     function App() {
         // 구조 분해 할당(Destructuring assignment), 클로저(Closure)
-        const [counter, modifier] = React.useState(0);
-        const onClick = () => modifier(counter + 1);
+        const [counter, setCounter] = React.useState(0);
+        // React가 함수 호출 시점에 최신 상태값을 보장한다.
+        const onClick = () => setCounter((current) => current + 1);
         return (
             <div>
                 <h3>Total clicks: {counter}</h3>
