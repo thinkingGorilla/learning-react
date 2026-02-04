@@ -17,19 +17,23 @@
     }
 
     // function Btn(props) {
-    function Btn({banana, x = true, y = 0}) {
-        console.log(arguments);
-        return <button style={buttonStyle}>{`${banana} ${x} ${y}`}</button>;
+    function Btn({text, onClick}) {
+        console.log(text, "was rendered");
+        return <button style={buttonStyle} onClick={onClick}>{text}</button>;
     }
 
+    const MemorizedBtn = React.memo(Btn);
     function App() {
+        const [value, setValue] = React.useState("Save Changes");
+        const changeValue = () => setValue(_ => "Revert Changes");
+
         return (
             <div>
                 {
                     // Btn({banana: "Save Changes"})
                 }
-                <Btn banana="Save Changes" x={false}/>
-                <Btn banana={"Confirm"} y={1}/>
+                <MemorizedBtn text={value} onClick={changeValue}/>
+                <MemorizedBtn text="Continue" onClick={() => {}}/>
             </div>
         );
     }
