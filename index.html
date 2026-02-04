@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<div id="root"></div>
+</body>
+<script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+
+    const buttonStyle = {
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        border: "none",
+        borderRadius: "10px",
+    }
+
+    // function Btn(props) {
+    function Btn({banana, x = true, y = 0}) {
+        console.log(arguments);
+        return <button style={buttonStyle}>{`${banana} ${x} ${y}`}</button>;
+    }
+
+    function App() {
+        return (
+            <div>
+                {
+                    // Btn({banana: "Save Changes"})
+                }
+                <Btn banana="Save Changes" x={false}/>
+                <Btn banana={"Confirm"} y={1}/>
+            </div>
+        );
+    }
+
+    const root = document.getElementById("root");
+    ReactDOM.render(<App/>, root);
+</script>
