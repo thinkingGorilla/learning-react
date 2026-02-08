@@ -12,6 +12,7 @@
         const [count, setCount] = React.useState(0);
         const [renderCount, setRenderCount] = React.useState(0);
 
+        // 이 함수는 state가 변경되면 매번 다시 실행된다.
         const computeExpensiveValue = (num) => {
             console.log("Computing...");
             let result = 0;
