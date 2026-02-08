@@ -1,39 +1,21 @@
-import styles from './App.module.css';
 import {useEffect, useState} from "react";
 
+// return이 없으면 undefined를 반환
+function Hello() {
+    useEffect(() => console.log("Hello"), []);
+    useEffect(() => () => console.log("Goodbye"), []);
+
+    return <h1>Hello</h1>;
+}
+
 function App() {
-    const [count, setCount] = useState(0);
-    const onClick = () => setCount(previous => previous + 1);
-
-    const [keyword, setKeyword] = useState("")
-    const onChange = (e) => setKeyword(_ => e.target.value);
-
-    console.log("I run all the time.");
-    const isRunOnlyOnce = () => console.log("I run only once.");
-    useEffect(isRunOnlyOnce, []);
-    useEffect(
-        () => {
-            if (keyword.length !== "" && keyword.length > 5) {
-                console.log(`Search for ${keyword}`)
-            }
-        },
-        [keyword]
-    );
-    useEffect(
-        () => console.log("I run when keyword or count changes."),
-        [keyword, count]
-    );
+    const [showing, setShowing] = useState(false);
+    const onClick = () => setShowing(previous => !previous);
 
     return (
         <div>
-            <input
-                value={keyword}
-                onChange={onChange}
-                type="text"
-                placeholder="Type something..."
-            />
-            <h1 className={styles.title}>{count}</h1>
-            <button onClick={onClick}>click me!</button>
+            {showing && <Hello/>}
+            <button onClick={onClick}>{showing ? "Hide" : "Show"}</button>
         </div>
     );
 }
